@@ -45,3 +45,13 @@ vercel --prod
 | Payments  | deposit step in booking flow   | Stripe Checkout  |
 | Email     | confirmation/reminder triggers | Resend           |
 | Analytics | track() event calls            | PostHog          |
+
+## Status
+
+This is a **portfolio/demo build**. The UI, flows, and architecture are complete and
+deployable; the third-party integrations are **stubbed behind thin seams** rather than
+wired to live accounts. Each seam is a single file — swapping in the real SDK is a wiring
+task, not a rebuild. The "Stack mapping" table below shows exactly where each one slots in.
+
+**Built with (real):** Next.js (App Router), TypeScript, Tailwind, Recharts, Framer Motion.
+**Architected for:** Convex, Clerk, Stripe, Resend, PostHog.
