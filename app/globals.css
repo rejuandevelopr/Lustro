@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+/* Theme + structure derived from ui-ux-pro-max skill (Trust & Authority).
+   Palette is the Lustro brand override documented in design-system/lustro/MASTER.md. */
+@theme {
+  --color-cream: #fefae0;
+  --color-paper: #fffdf3;
+  --color-sand: #f4eccf;
+  --color-olive: #283618;
+  --color-olive-2: #32421f;
+  --color-olive-3: #3c4d27;
+  --color-moss: #606c38;
+  --color-moss-soft: #98a85b;
+  --color-moss-text: #4d5a26;
+  --color-rust: #bc6c25;
+  --color-tan: #dda15e;
+  --color-line: #e7dec0;
+  --color-line-2: #d6cca2;
+  --color-ink-dim: #5c6536;
+  --color-ink-mute: #8a875b;
+  --color-cream-dim: #cdce9f;
+  --color-danger: #b3402a;
+
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui;
+  --font-body: var(--font-inter), ui-sans-serif, system-ui;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  --radius-card: 18px;
+  --muted-foreground: oklch(.556 0 0);
+}
+
+* { -webkit-font-smoothing: antialiased; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--color-cream);
+  color: var(--color-olive);
+  font-family: var(--font-body);
+  letter-spacing: -0.01em;
+}
+
+::selection { background: color-mix(in srgb, var(--color-moss) 35%, transparent); color: var(--color-olive); }
+
+/* skill: focus-states (HIGH) — visible ring on every interactive element */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-cream), 0 0 0 4px var(--color-moss);
+  border-radius: 8px;
+}
+
+/* skill: number-tabular — prevents layout shift in prices/times */
+.tnum { font-variant-numeric: tabular-nums; }
+
+/* Signature gloss sweep on the deep-olive hero panel */
+@keyframes gloss {
+  0% { transform: translateX(-120%) skewX(-18deg); opacity: 0; }
+  18% { opacity: 0.9; }
+  46% { opacity: 0; }
+  100% { transform: translateX(220%) skewX(-18deg); opacity: 0; }
+}
+.gloss-sweep::after {
+  content: "";
+  position: absolute; top: 0; bottom: 0; left: 0; width: 42%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.14) 45%, rgba(221,161,94,0.22) 55%, transparent);
+  filter: blur(2px);
+  animation: gloss 6.5s cubic-bezier(0.3,0,0.2,1) infinite;
+  animation-delay: 1.2s;
+  pointer-events: none;
+}
+
+/* skill effect: smooth stat reveal */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.reveal { animation: rise 0.6s cubic-bezier(0.2,0,0.1,1) both; }
+
+.grain {
+  background-image: radial-gradient(rgba(40,54,24,0.045) 1px, transparent 1px);
+  background-size: 3px 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gloss-sweep::after, .reveal { animation: none; }
+  .reveal { opacity: 1; transform: none; }
+  html { scroll-behavior: auto; }
+}
